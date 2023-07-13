@@ -4,28 +4,52 @@ services:
   dataprovider:
     image: aldidoanta/mendix-ids-connector:1.0
     depends_on:
-      - db
+      - db_dataprovider
     environment:
       ADMIN_PASSWORD: Dataprovider1!
-      DATABASE_ENDPOINT: postgres://admin:admin@db:5432/db
+      DATABASE_ENDPOINT: postgres://admin:admin@db_dataprovider:5432/db
     ports:
       - 8080:8080
     networks:
-      - ids-logistics
+      - ids_logistics
+  
+  dataconsumer:
+    image: aldidoanta/mendix-ids-connector:1.0
+    depends_on:
+      - db_dataconsumer
+    environment:
+      ADMIN_PASSWORD: Dataconsumer1!
+      DATABASE_ENDPOINT: postgres://admin:admin@db_dataconsumer:5432/db
+    ports:
+      - 8081:8080
+    networks:
+      - ids_logistics
 
-  db:
+  db_dataprovider:
     image: postgres:14.8
     environment:
       - POSTGRES_DB=db
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db_dataprovider_data:/var/lib/postgresql/data
     networks:
-      - ids-logistics
+      - ids_logistics
+
+  db_dataconsumer:
+    image: postgres:14.8
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - db_dataconsumer_data:/var/lib/postgresql/data
+    networks:
+      - ids_logistics
           
 networks:
-  ids-logistics:
+  ids_logistics:
 
 volumes:
-  db-data:
+  db_dataprovider_data:
+  db_dataconsumer_data:
