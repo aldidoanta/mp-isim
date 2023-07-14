@@ -7,7 +7,8 @@ services:
       - db_dataprovider
     environment:
       ADMIN_PASSWORD: Dataprovider1!
-      DATABASE_ENDPOINT: postgres://admin:admin@db_dataprovider:5432/db
+      DATABASE_ENDPOINT: postgres://admin:admin@db_dataprovider:5432/db_dp
+      MXRUNTIME_ApplicationRootUrl: http://localhost:8080
     ports:
       - 8080:8080
     networks:
@@ -19,7 +20,8 @@ services:
       - db_dataconsumer
     environment:
       ADMIN_PASSWORD: Dataconsumer1!
-      DATABASE_ENDPOINT: postgres://admin:admin@db_dataconsumer:5432/db
+      DATABASE_ENDPOINT: postgres://admin:admin@db_dataconsumer:5432/db_dc
+      MXRUNTIME_ApplicationRootUrl: http://localhost:8081
     ports:
       - 8081:8080
     networks:
@@ -28,7 +30,7 @@ services:
   db_dataprovider:
     image: postgres:14.8
     environment:
-      - POSTGRES_DB=db
+      - POSTGRES_DB=db_dp
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
     volumes:
@@ -39,7 +41,7 @@ services:
   db_dataconsumer:
     image: postgres:14.8
     environment:
-      - POSTGRES_DB=db
+      - POSTGRES_DB=db_dc
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
     volumes:
