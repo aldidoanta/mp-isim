@@ -8,7 +8,7 @@ services:
     environment:
       ADMIN_PASSWORD: Dataparticipant1!
       DATABASE_ENDPOINT: postgres://admin:admin@db_dataparticipant:5432/db_dp
-      MXRUNTIME_ApplicationRootUrl: http://localhost:8080
+      # MXRUNTIME_ApplicationRootUrl: http://localhost:8080
     ports:
       - 8080:8080
     networks:
