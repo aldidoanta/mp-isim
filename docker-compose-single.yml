@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  dataparticipant:
+    image: aldidoanta/mendix-ids-connector:1.0
+    depends_on:
+      - db_dataparticipant
+    environment:
+      ADMIN_PASSWORD: Dataparticipant1!
+      DATABASE_ENDPOINT: postgres://admin:admin@db_dataparticipant:5432/db_dp
+      MXRUNTIME_ApplicationRootUrl: http://localhost:8080
+    ports:
+      - 8080:8080
+    networks:
+      - ids_network
+
+  db_dataparticipant:
+    image: postgres:14.8
+    environment:
+      - POSTGRES_DB=db_dp
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5432:5432
+    volumes:
+      - db_dataparticipant_data:/var/lib/postgresql/data
+    networks:
+      - ids_network
+          
+networks:
+  ids_network
+
+volumes:
+  db_dataparticipant_data:
