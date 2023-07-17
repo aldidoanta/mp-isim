@@ -12,7 +12,7 @@ services:
     ports:
       - 8080:8080
     networks:
-      - ids_logistics
+      - dp
   
   dataconsumer:
     image: aldidoanta/mendix-ids-connector:1.0
@@ -25,7 +25,7 @@ services:
     ports:
       - 8081:8080
     networks:
-      - ids_logistics
+      - dc
 
   db_dataprovider:
     image: postgres:14.8
@@ -38,7 +38,7 @@ services:
     volumes:
       - db_dataprovider_data:/var/lib/postgresql/data
     networks:
-      - ids_logistics
+      - dp
 
   db_dataconsumer:
     image: postgres:14.8
@@ -51,10 +51,11 @@ services:
     volumes:
       - db_dataconsumer_data:/var/lib/postgresql/data
     networks:
-      - ids_logistics
+      - dc
           
 networks:
-  ids_logistics:
+  dp:
+  dc:
 
 volumes:
   db_dataprovider_data:
