@@ -28,7 +28,7 @@ services:
       - ids_network
           
 networks:
-  ids_network
+  ids_network:
 
 volumes:
   db_dataparticipant_data:
