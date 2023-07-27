@@ -1,48 +1,38 @@
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from rest_framework import mixins, generics
 from isim.models import Isim
 from isim.serializers import IsimSerializer
 
 
-@api_view(['GET', 'POST'])
-def isim_list(request, format=None):
+class IsimList(mixins.ListModelMixin,
+               mixins.CreateModelMixin,
+               generics.GenericAPIView):
     """
     List all interoperability scenarios, or create a new one.
     """
-    if request.method == 'GET':
-        isim = Isim.objects.all()
-        serializer = IsimSerializer(isim, many=True)
-        return Response(serializer.data)
+    queryset = Isim.objects.all()
+    serializer_class = IsimSerializer
 
-    elif request.method == 'POST':
-        serializer = IsimSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+        
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def isim_detail(request, pk, format=None):
+class IsimDetail(mixins.RetrieveModelMixin,
+                 mixins.UpdateModelMixin,
+                 mixins.DestroyModelMixin,
+                 generics.GenericAPIView):
     """
     Retrieve, update, or delete an interoperability scenario.
     """
-    try:
-        isim = Isim.objects.get(pk=pk)
-    except Isim.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    queryset = Isim.objects.all()
+    serializer_class = IsimSerializer
 
-    if request.method == 'GET':
-        serializer = IsimSerializer(isim)
-        return Response(serializer.data)
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+        
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
-    elif request.method == 'PUT':
-        serializer = IsimSerializer(isim, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        isim.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
