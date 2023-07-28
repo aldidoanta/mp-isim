@@ -17,3 +17,10 @@ class Isim(models.Model):
 
     class Meta:
         ordering = ['created']
+
+    @staticmethod
+    def simulate(data):
+        return {
+            'merged_schema': data['dataprovider_schema'] + ' ' + data['dataconsumer_schema'],
+            'matcher': data['matcher']
+        }
