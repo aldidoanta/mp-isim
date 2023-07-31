@@ -5,7 +5,7 @@ WORKDIR /vocabulary_hub
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONPATH /vocabulary_hub:$PYTHONPATH
 
-COPY . /vocabulary_hub/
+COPY /vocabulary_hub/ /vocabulary_hub/
 
 EXPOSE 8000
 
