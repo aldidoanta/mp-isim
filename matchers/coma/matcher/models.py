@@ -1,4 +1,6 @@
 from django.db import models
+from .algorithm.coma import Coma
+from .algorithm.data_sources.csv.csv_table import CSVTable
 
 
 class Matcher(models.Model):
@@ -10,6 +12,14 @@ class Matcher(models.Model):
 
     @staticmethod
     def get_matches(data):
+        # Instantiate matcher and run
+        # Coma requires java to be installed on your machine
+        matcher = Coma(strategy="COMA_OPT")
+        dataprovider_schema = CSVTable(data['dataprovider_schema'], 'dataprovider_schema')
+        dataconsumer_schema = CSVTable(data['dataconsumer_schema'], 'dataconsumer_schema')
+        matches = dict(sorted(matcher.get_matches(dataprovider_schema, dataconsumer_schema).items(),
+                              key=lambda item: item[1], reverse=True))
+
         return {
-            'merged_schema': data['dataprovider_schema'] + ' being matched with ' + data['dataconsumer_schema']
+            'results': matches
         }

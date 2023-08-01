@@ -4,13 +4,12 @@ import tempfile
 import time
 from typing import AnyStr, Dict, Tuple
 
-from ..base_matcher import BaseMatcher
-from ..match import Match
-from ...data_sources.base_table import BaseTable
-from ...utils.utils import get_project_root
+from .match import Match
+from .data_sources.base_table import BaseTable
+from .utils.utils import get_project_root
 
 
-class Coma(BaseMatcher):
+class Coma:
 
     def __init__(self,
                  max_n: int = 0,
@@ -112,7 +111,10 @@ class Coma(BaseMatcher):
                          tmp_folder_path: str
                          ) -> str:
         f_name: AnyStr = os.path.join(tmp_folder_path, table.name + ".csv")
-        table.get_df().to_csv(f_name, index=False)
+        f = open(f_name,'w')
+        f.write(table.get_data() + '\n')
+        f.close()
+        # table.get_df().to_csv(f_name, index=False)
         return f_name
 
     @staticmethod
