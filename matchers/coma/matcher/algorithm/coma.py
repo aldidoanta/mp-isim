@@ -40,7 +40,7 @@ class Coma:
                        coma_output_path: str,
                        tmp_folder_path: str
                        ) -> None:
-        jar_path = os.path.join(get_project_root(), 'algorithms', 'coma', 'artifact', 'coma.jar')
+        jar_path = os.path.join(get_project_root(), 'artifact', 'coma.jar')
         source_data = os.path.join(tmp_folder_path, source_table_f_name)
         target_data = os.path.join(tmp_folder_path, target_table_f_name)
         coma_output_path = os.path.join(tmp_folder_path, coma_output_path)
