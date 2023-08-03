@@ -17,11 +17,18 @@ class Matcher(models.Model):
         matcher = Coma(strategy="COMA_OPT")
         dataprovider_schema = CSVTable(data['dataprovider_schema'], 'dataprovider_schema')
         dataconsumer_schema = CSVTable(data['dataconsumer_schema'], 'dataconsumer_schema')
-        # matcher_results = matcher.get_matches(dataprovider_schema, dataconsumer_schema).items()
-        # matches = dict(sorted(matcher_results,
-        #                       key=lambda item: item[1], reverse=True))
         matches = matcher.get_matches(dataprovider_schema, dataconsumer_schema).items()
+        # Sort results by similarity score, descending
+        sorted_matches = sorted(matches,
+                              key=lambda item: item[1], reverse=True)
+        matches_response = list(map(Matcher.build_match_response, sorted_matches))
 
+        return matches_response
+    
+    @staticmethod
+    def build_match_response(match):
         return {
-            'results': matches
+            'dataprovider_element': match[0][0][1],
+            'dataconsumer_element': match[0][1][1],
+            'score': match[1]
         }
