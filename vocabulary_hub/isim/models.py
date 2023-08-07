@@ -1,3 +1,4 @@
+import requests
 from django.db import models
 
 MATCHERS = [
@@ -28,10 +29,23 @@ class Isim(models.Model):
 
     @staticmethod
     def simulate(data):
+        matcher_request_body = {
+            'dataprovider_schema': data['dataprovider_schema'],
+            'dataconsumer_schema': data['dataconsumer_schema'],
+        }
+        # API call to the selected matcher service
+        try:
+            r = requests.post('http://localhost:8001/matcher/get-matches',data=matcher_request_body)
+            r.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            raise SystemExit(err)
+        
+        # TODO proper HTTP 5xx error handling
         response = {
-            'merged_schema': data['dataprovider_schema'] + ' ' + data['dataconsumer_schema'],
+            'matches': r.json(),
             'matcher': data['matcher'],
         }
+        # Simple price calculation based on the number of intervals and price per interval
         if 'pricing_info' in data:
             response['total_price'] = data['pricing_info']['intervals'] * data['pricing_info']['price_per_interval']
         return response
