@@ -28,8 +28,10 @@ class Isim(models.Model):
 
     @staticmethod
     def simulate(data):
-        return {
+        response = {
             'merged_schema': data['dataprovider_schema'] + ' ' + data['dataconsumer_schema'],
             'matcher': data['matcher'],
-            'total_price': data['pricing_info']['intervals'] * data['pricing_info']['price_per_interval'],
         }
+        if 'pricing_info' in data:
+            response['total_price'] = data['pricing_info']['intervals'] * data['pricing_info']['price_per_interval']
+        return response
