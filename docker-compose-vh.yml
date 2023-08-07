@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  vocabulary_hub:
+    image: aldidoanta/vocabulary-hub:latest
+    ports:
+      - 127.0.0.1:8000:8000
+    networks:
+      - isim
+      - vh
+  
+  matcher-coma:
+    image: aldidoanta/matcher-coma:latest
+    depends_on:
+      - vocabulary_hub
+    ports:
+      - 127.0.0.1:8001:8000
+    networks:
+      - vh
+          
+networks:
+  isim:
+  vh:
