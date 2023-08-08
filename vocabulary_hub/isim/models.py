@@ -1,4 +1,5 @@
 import requests
+from django.conf import settings
 from django.db import models
 
 MATCHERS = [
@@ -35,7 +36,7 @@ class Isim(models.Model):
         }
         # API call to the selected matcher service
         try:
-            r = requests.post('http://localhost:8001/matcher/get-matches',data=matcher_request_body)
+            r = requests.post(f'{settings.MATCHER_COMA_HOST}/matcher/get-matches',data=matcher_request_body)
             r.raise_for_status()
         except requests.exceptions.HTTPError as err:
             raise SystemExit(err)
