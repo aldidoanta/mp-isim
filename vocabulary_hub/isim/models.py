@@ -20,8 +20,8 @@ class Isim(models.Model):
     The model that represents an interoperability scenario.
     """
     created = models.DateTimeField(auto_now_add=True)
-    dataprovider_schema = models.CharField(max_length=100, blank=True, default='')
-    dataconsumer_schema = models.CharField(max_length=100, blank=True, default='')
+    source_schema = models.CharField(max_length=100, blank=True, default='')
+    target_schema = models.CharField(max_length=100, blank=True, default='')
     matcher = models.CharField(choices=MATCHERS, default=MATCHERS[0], max_length=100)
     pricing_info = PricingInfo()
 
@@ -31,8 +31,8 @@ class Isim(models.Model):
     @staticmethod
     def simulate(data):
         matcher_request_body = {
-            'dataprovider_schema': data['dataprovider_schema'],
-            'dataconsumer_schema': data['dataconsumer_schema'],
+            'source_schema': data['source_schema'],
+            'target_schema': data['target_schema'],
         }
         # API call to the selected matcher service
         try:

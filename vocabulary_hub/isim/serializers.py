@@ -12,9 +12,9 @@ class PricingInfoSerializer(serializers.Serializer):
 class IsimSerializer(serializers.ModelSerializer):
     class Meta:
         model = Isim
-        fields = ['id', 'dataprovider_schema', 'dataconsumer_schema', 'matcher', 'pricing_info']
+        fields = ['id', 'source_schema', 'target_schema', 'matcher', 'pricing_info']
     id = serializers.IntegerField(read_only=True)
-    dataprovider_schema = serializers.CharField(required=True, allow_blank=True, max_length=100)
-    dataconsumer_schema = serializers.CharField(required=True, allow_blank=True, max_length=100)
+    source_schema = serializers.CharField(required=True, allow_blank=True, max_length=100)
+    target_schema = serializers.CharField(required=True, allow_blank=True, max_length=100)
     matcher = serializers.ChoiceField(choices=MATCHERS, default=MATCHERS[0])
     pricing_info = PricingInfoSerializer(required=False)
