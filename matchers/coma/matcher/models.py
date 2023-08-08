@@ -7,17 +7,17 @@ class Matcher(models.Model):
     """
     The model that represents a schema-matching algorithm
     """
-    dataprovider_schema = models.CharField(max_length=100, blank=True, default='')
-    dataconsumer_schema = models.CharField(max_length=100, blank=True, default='')
+    source_schema = models.CharField(max_length=100, blank=True, default='')
+    target_schema = models.CharField(max_length=100, blank=True, default='')
 
     @staticmethod
     def get_matches(data):
-        # Instantiate matcher and run
+        # Instantiate matcher
         # Coma requires java to be installed on your machine
         matcher = Coma(strategy="COMA_OPT")
-        dataprovider_schema = CSVTable(data['dataprovider_schema'], 'dataprovider_schema')
-        dataconsumer_schema = CSVTable(data['dataconsumer_schema'], 'dataconsumer_schema')
-        matches = matcher.get_matches(dataprovider_schema, dataconsumer_schema).items()
+        source_schema = CSVTable(data['source_schema'], 'source_schema')
+        target_schema = CSVTable(data['target_schema'], 'target_schema')
+        matches = matcher.get_matches(source_schema, target_schema).items()
         # Sort results by similarity score, descending
         sorted_matches = sorted(matches,
                               key=lambda item: item[1], reverse=True)
@@ -28,7 +28,7 @@ class Matcher(models.Model):
     @staticmethod
     def build_match_response(match):
         return {
-            'dataprovider_element': match[0][0][1],
-            'dataconsumer_element': match[0][1][1],
+            'source_element': match[0][0][1],
+            'target_element': match[0][1][1],
             'score': match[1]
         }

@@ -5,6 +5,6 @@ from matcher.models import Matcher
 class MatcherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Matcher
-        fields = ['dataprovider_schema', 'dataconsumer_schema']
-    dataprovider_schema = serializers.CharField(required=False, allow_blank=True, max_length=100)
-    dataconsumer_schema = serializers.CharField(required=False, allow_blank=True, max_length=100)
+        fields = ['source_schema', 'target_schema']
+    source_schema = serializers.CharField(required=True, allow_blank=True, max_length=100)
+    target_schema = serializers.CharField(required=True, allow_blank=True, max_length=100)
