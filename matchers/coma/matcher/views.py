@@ -1,14 +1,15 @@
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from matcher.models import Matcher
 from matcher.serializers import MatcherSerializer
 
 
-class MatcherGetMatches(APIView):
+class MatcherGetMatches(generics.GenericAPIView):
     """
-    Simulate an interoperability scenario, returning a schema mapping as the output
+    Given a source schema and a target schema, returns the schema mapping as the output.
     """
+    serializer_class = MatcherSerializer
+
     def post(self, request, format=None):
         serializer = MatcherSerializer(data=request.data)
         if serializer.is_valid():
