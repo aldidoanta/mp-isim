@@ -131,3 +131,4 @@ env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 MATCHER_COMA_HOST = env('MATCHER_COMA_HOST')
+MATCHER_DUMMY_HOST = env('MATCHER_DUMMY_HOST')

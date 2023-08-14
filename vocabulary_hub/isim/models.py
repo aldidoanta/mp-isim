@@ -5,7 +5,14 @@ from django.db import models
 MATCHERS = [
     ('coma', 'COMA'),
     ('cupid', 'Cupid'),
+    ('dummy', 'Dummy'),
 ]
+
+MATCHER_HOSTS = {
+    'coma': settings.MATCHER_COMA_HOST,
+    'cupid': None,
+    'dummy': settings.MATCHER_DUMMY_HOST,
+}
 
 
 class PricingInfo(models.Model):
@@ -36,7 +43,8 @@ class Isim(models.Model):
         }
         # API call to the selected matcher service
         try:
-            r = requests.post(f'{settings.MATCHER_COMA_HOST}/matcher/get-matches',data=matcher_request_body)
+            r = requests.post(f'{MATCHER_HOSTS[data["matcher"]]}/matcher/match-schemas',
+                              json=matcher_request_body)
             r.raise_for_status()
         except requests.exceptions.HTTPError as err:
             raise SystemExit(err)
