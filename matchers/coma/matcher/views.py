@@ -7,12 +7,13 @@ from matcher.serializers import MatcherRequestSerializer, MatcherResponseSeriali
 
 class MatcherGetMatches(generics.GenericAPIView):
     """
-    Given a source schema and a target schema, returns the schema mapping as the output.
+    Given a source schema and a target schema, returns a schema mapping along with the similarity score.
     """
     request_serializer_class = MatcherRequestSerializer
 
     @extend_schema(
-        responses={201: MatcherResponseSerializer},
+        request=MatcherRequestSerializer,
+        responses={200: MatcherResponseSerializer},
     )
     def post(self, request, format=None):
         request_serializer = self.request_serializer_class(data=request.data)
