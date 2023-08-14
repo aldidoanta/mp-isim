@@ -32,3 +32,11 @@ class Matcher(models.Model):
             'target_element': match[0][1][1],
             'score': match[1]
         }
+
+class MatcherResponse(models.Model):
+    """
+    The model that represents the results of a schema-matching algorithm
+    """
+    source_element = models.CharField(max_length=100, blank=True, default='')
+    target_element = models.CharField(max_length=100, blank=True, default='')
+    score = models.DecimalField(max_digits=4, decimal_places=3)
