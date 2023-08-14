@@ -12,11 +12,8 @@ python manage.py runserver 8001
 ```
 
 ## OpenAPI 3.0 Documentation
-1. Generate the latest documentation schema using
-```bash
-python manage.py spectacular --color --file schema.yml
-```
-2. After running the web service, visit http://localhost:8001/docs. The page should show the documentation rendered using Swagger UI.
+- Schema in JSON: http://localhost:8001/docs/schema
+- Rendered using Swagger UI: http://localhost:8001/docs
 
 ## Technology Stack
 1. REST web service: Python + [Django](https://www.djangoproject.com/) + [Django REST framework](https://www.django-rest-framework.org/)
