@@ -5,7 +5,7 @@ from matcher.models import Matcher
 from matcher.serializers import MatcherRequestSerializer, MatcherResponseSerializer
 
 
-class MatcherGetMatches(generics.GenericAPIView):
+class MatcherMatchSchemas(generics.GenericAPIView):
     """
     Given a source schema and a target schema, returns a schema mapping along with the similarity score.
     """
@@ -18,7 +18,7 @@ class MatcherGetMatches(generics.GenericAPIView):
     def post(self, request, format=None):
         request_serializer = self.request_serializer_class(data=request.data)
         if request_serializer.is_valid():
-            matcher_results = Matcher.get_matches(request_serializer.validated_data)
+            matcher_results = Matcher.match_schemas(request_serializer.validated_data)
             response_serializer = MatcherResponseSerializer(matcher_results, many=True)
             return Response(response_serializer.data, status=status.HTTP_200_OK)
         return Response(request_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

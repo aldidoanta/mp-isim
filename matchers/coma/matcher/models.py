@@ -11,7 +11,7 @@ class Matcher(models.Model):
     target_schema = models.CharField(max_length=100, blank=True, default='')
 
     @staticmethod
-    def get_matches(data):
+    def match_schemas(data):
         # Instantiate matcher
         # Coma requires java to be installed on your machine
         matcher = Coma(strategy="COMA_OPT")
