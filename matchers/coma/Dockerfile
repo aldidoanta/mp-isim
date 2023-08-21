@@ -17,8 +17,8 @@ ENV PYTHONPATH /coma:$PYTHONPATH
 
 COPY . /coma/
 
-EXPOSE 8000
+EXPOSE 8001
 
 RUN pip install -r requirements.txt
 
-CMD ["python", "/coma/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "/coma/manage.py", "runserver", "0.0.0.0:8001"]

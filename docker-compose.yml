@@ -2,28 +2,28 @@ version: "3.8"
 
 services:
   dataprovider:
-    image: aldidoanta/mendix-ids-connector:1.0
+    image: aldidoanta/mendix-ids-connector:latest
     depends_on:
       - db_dataprovider
     environment:
       ADMIN_PASSWORD: Dataprovider1!
       DATABASE_ENDPOINT: postgres://admin:admin@db_dataprovider:5432/db_dp
-      MXRUNTIME_ApplicationRootUrl: http://localhost:8080
+      MXRUNTIME_ApplicationRootUrl: http://localhost:8081
     ports:
-      - 8080:8080
+      - 127.0.0.1:8081:8080
     networks:
       - dp
   
   dataconsumer:
-    image: aldidoanta/mendix-ids-connector:1.0
+    image: aldidoanta/mendix-ids-connector:latest
     depends_on:
       - db_dataconsumer
     environment:
       ADMIN_PASSWORD: Dataconsumer1!
       DATABASE_ENDPOINT: postgres://admin:admin@db_dataconsumer:5432/db_dc
-      MXRUNTIME_ApplicationRootUrl: http://localhost:8081
+      MXRUNTIME_ApplicationRootUrl: http://localhost:8082
     ports:
-      - 8081:8080
+      - 127.0.0.1:8082:8080
     networks:
       - dc
 
@@ -34,7 +34,7 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
     ports:
-      - 5432:5432
+      - 127.0.0.1:5432:5432
     volumes:
       - db_dataprovider_data:/var/lib/postgresql/data
     networks:
@@ -47,7 +47,7 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
     ports:
-      - 5433:5432
+      - 127.0.0.1:5433:5432
     volumes:
       - db_dataconsumer_data:/var/lib/postgresql/data
     networks:

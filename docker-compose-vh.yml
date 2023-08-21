@@ -15,7 +15,7 @@ services:
   matchercoma:
     image: aldidoanta/matcher-coma:latest
     ports:
-      - "127.0.0.1:8001:8000"
+      - "127.0.0.1:8001:8001"
     networks:
       - vh
 
