@@ -2,7 +2,7 @@
 
 A Matcher using [COMA 3.0 from the University of Leipzig](https://dbs.uni-leipzig.de/Research/coma.html).
 
-The implementation was adapted from [Valentine](https://doi.org/10.1109/ICDE51399.2021.00047), a Python package to perform schema matching using pandas DataFrame.
+The implementation was adapted from [Valentine](https://doi.org/10.1109/ICDE51399.2021.00047), a Python package to perform schema matching using `pandas DataFrame`.
 
 User can perform the schema matching operation via the REST web service.
 
