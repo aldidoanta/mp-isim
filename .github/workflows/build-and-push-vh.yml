@@ -5,8 +5,8 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - vocabulary_hub/**
+    paths:
+      - vocabulary_hub/**
 
 jobs:
   build-and-push:
