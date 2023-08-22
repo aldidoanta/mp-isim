@@ -17,6 +17,12 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Environment variables
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+MATCHER_COMA_HOST = env('MATCHER_COMA_HOST')
+MATCHER_DUMMY_HOST = env('MATCHER_DUMMY_HOST')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -27,7 +33,7 @@ SECRET_KEY = 'django-insecure-2_+6%7fmr2z61x4!8xbi$9h^o71gcm5k0vd4-qsj401btuq5(o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', env('VH_HOST')]
 
 
 # Application definition
@@ -125,10 +131,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Environment variables
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
-MATCHER_COMA_HOST = env('MATCHER_COMA_HOST')
-MATCHER_DUMMY_HOST = env('MATCHER_DUMMY_HOST')
