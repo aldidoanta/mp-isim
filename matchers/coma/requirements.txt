@@ -2,6 +2,7 @@ asgiref==3.7.2
 attrs==23.1.0
 chardet==5.1.0
 Django==4.2.3
+django-environ==0.10.0
 djangorestframework==3.14.0
 drf-spectacular==0.26.4
 inflection==0.5.1
