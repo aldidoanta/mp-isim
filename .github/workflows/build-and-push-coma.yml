@@ -1,6 +1,6 @@
 # Builds a Docker image of Matcher-COMA and pushes it to Docker Hub, a container registry.
 
-name: Build and push image
+name: Build and push Matcher-COMA image
 on:
   push:
     branches:

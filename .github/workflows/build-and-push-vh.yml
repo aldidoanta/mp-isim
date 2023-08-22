@@ -1,6 +1,6 @@
 # Builds a Docker image of Vocabulary Hub and pushes it to Docker Hub, a container registry.
 
-name: Build and push image
+name: Build and push VH image
 on:
   push:
     branches:
