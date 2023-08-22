@@ -1,18 +1,19 @@
 version: "3.8"
 
 services:
-  dataprovider:
-    image: aldidoanta/mendix-ids-connector:latest
-    depends_on:
-      - db_dataprovider
-    environment:
-      ADMIN_PASSWORD: Dataprovider1!
-      DATABASE_ENDPOINT: postgres://admin:admin@db_dataprovider:5432/db_dp
-      MXRUNTIME_ApplicationRootUrl: http://localhost:8081
-    ports:
-      - 127.0.0.1:8081:8080
-    networks:
-      - dp
+  # dataprovider:
+  #   image: aldidoanta/mendix-ids-connector:latest
+  #   depends_on:
+  #     - db_dataprovider
+  #   environment:
+  #     ADMIN_PASSWORD: Dataprovider1!
+  #     DATABASE_ENDPOINT: postgres://admin:admin@db_dataprovider:5432/db_dp
+  #     MXRUNTIME_ApplicationRootUrl: http://localhost:8081
+  #   ports:
+  #     - 127.0.0.1:8081:8080
+  #   networks:
+  #     - dp
+  #     - ids
   
   dataconsumer:
     image: aldidoanta/mendix-ids-connector:latest
@@ -21,24 +22,26 @@ services:
     environment:
       ADMIN_PASSWORD: Dataconsumer1!
       DATABASE_ENDPOINT: postgres://admin:admin@db_dataconsumer:5432/db_dc
+      MX_IDSConnector_VH_Host_Constant: http://vocabularyhub:8000
       MXRUNTIME_ApplicationRootUrl: http://localhost:8082
     ports:
       - 127.0.0.1:8082:8080
     networks:
       - dc
+      - ids
 
-  db_dataprovider:
-    image: postgres:14.8
-    environment:
-      - POSTGRES_DB=db_dp
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-    ports:
-      - 127.0.0.1:5432:5432
-    volumes:
-      - db_dataprovider_data:/var/lib/postgresql/data
-    networks:
-      - dp
+  # db_dataprovider:
+  #   image: postgres:14.8
+  #   environment:
+  #     - POSTGRES_DB=db_dp
+  #     - POSTGRES_USER=admin
+  #     - POSTGRES_PASSWORD=admin
+  #   ports:
+  #     - 127.0.0.1:5432:5432
+  #   volumes:
+  #     - db_dataprovider_data:/var/lib/postgresql/data
+  #   networks:
+  #     - dp
 
   db_dataconsumer:
     image: postgres:14.8
@@ -52,11 +55,34 @@ services:
       - db_dataconsumer_data:/var/lib/postgresql/data
     networks:
       - dc
-          
+
+  vocabularyhub:
+    image: aldidoanta/vocabulary-hub:latest
+    depends_on:
+      - matchercoma
+    env_file:
+      - vocabulary_hub/.env
+    ports:
+      - "127.0.0.1:8000:8000"
+    networks:
+      - vh
+      - ids
+  
+  matchercoma:
+    image: aldidoanta/matcher-coma:latest
+    env_file:
+      - matchers/coma/.env
+    ports:
+      - "127.0.0.1:8001:8001"
+    networks:
+      - vh
+
 networks:
-  dp:
+  # dp:
   dc:
+  vh:
+  ids:
 
 volumes:
-  db_dataprovider_data:
+  # db_dataprovider_data:
   db_dataconsumer_data:
