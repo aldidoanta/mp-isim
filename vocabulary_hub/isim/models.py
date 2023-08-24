@@ -68,7 +68,7 @@ class Isim(models.Model):
     @staticmethod
     def get_unmatched_elements(source_elements: List[str], 
                                target_elements: List[str], 
-                               matched_elements: any) -> Dict[str,List[str]]:
+                               matched_elements: any) -> Dict[str,str]:
         matched_source_elements = list()
         matched_target_elements = list()
 
@@ -77,9 +77,10 @@ class Isim(models.Model):
             matched_source_elements = [element['source_element'] for element in matched_elements]
             matched_target_elements = [element['target_element'] for element in matched_elements]
 
+        # use `str` instead of `List[str]` because Mendix (the frontend) doesn't support array of literals
         unmatched_elements = {
-            'source_elements': list(set(source_elements) - set(matched_source_elements)),
-            'target_elements': list(set(target_elements) - set(matched_target_elements))
+            'source_elements': ','.join(set(source_elements) - set(matched_source_elements)),
+            'target_elements': ','.join(set(target_elements) - set(matched_target_elements))
         }
 
         # find the differences
