@@ -1,6 +1,7 @@
 import requests
 from django.conf import settings
 from django.db import models
+from typing import Dict, List
 
 MATCHERS = [
     ('coma', 'COMA'),
@@ -49,12 +50,37 @@ class Isim(models.Model):
         except requests.exceptions.HTTPError as err:
             raise SystemExit(err)
         
+        source_elements = filter(None, data['source_schema'].split(',')) # use filter() to remove empty strings
+        target_elements = filter(None, data['target_schema'].split(','))
+        matched_elements = r.json()
+
         # TODO proper HTTP 5xx error handling
         response = {
-            'matches': r.json(),
+            'matched_elements': matched_elements,
+            'unmatched_elements': Isim.get_unmatched_elements(source_elements, target_elements, matched_elements),
             'matcher': data['matcher'],
         }
         # Simple price calculation based on the number of intervals and price per interval
         if 'pricing_info' in data:
             response['total_price'] = data['pricing_info']['intervals'] * data['pricing_info']['price_per_interval']
         return response
+    
+    @staticmethod
+    def get_unmatched_elements(source_elements: List[str], 
+                               target_elements: List[str], 
+                               matched_elements: any) -> Dict[str,List[str]]:
+        matched_source_elements = list()
+        matched_target_elements = list()
+
+        # create a list of matched source elements and matched target elements
+        if (matched_elements):
+            matched_source_elements = [element['source_element'] for element in matched_elements]
+            matched_target_elements = [element['target_element'] for element in matched_elements]
+
+        unmatched_elements = {
+            'source_elements': list(set(source_elements) - set(matched_source_elements)),
+            'target_elements': list(set(target_elements) - set(matched_target_elements))
+        }
+
+        # find the differences
+        return unmatched_elements
