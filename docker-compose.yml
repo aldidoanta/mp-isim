@@ -60,6 +60,7 @@ services:
     image: aldidoanta/vocabulary-hub:latest
     depends_on:
       - matchercoma
+      - matcherdummy
     env_file:
       - vocabulary_hub/.env
     ports:
@@ -74,6 +75,13 @@ services:
       - matchers/coma/.env
     ports:
       - "127.0.0.1:8001:8001"
+    networks:
+      - vh
+
+  matcherdummy:
+    image: aldidoanta/matcher-dummy:latest
+    ports:
+      - "127.0.0.1:8080:8080"
     networks:
       - vh
 
