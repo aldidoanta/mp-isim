@@ -22,7 +22,7 @@ public class MatcherController {
 			schema = @Schema(implementation = MatcherResponse.class)) }),
 	})
 	@PostMapping("matcher/match-schemas")
-	public ResponseEntity<List<MatcherResponse>> greeting(@RequestBody MatcherRequest request) {
+	public ResponseEntity<List<MatcherResponse>> matchSchemas(@RequestBody MatcherRequest request) {
 		return ResponseEntity.ok(MatcherResponse.getDummyResponse());
 	}
 }

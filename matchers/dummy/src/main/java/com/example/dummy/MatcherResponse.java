@@ -21,10 +21,6 @@ public class MatcherResponse {
     private String score;
 
     public static List<MatcherResponse> getDummyResponse() {
-        DecimalFormat decimalFormat = new DecimalFormat("#.###");
-        return Arrays.asList(
-            new MatcherResponse("dummy_source_element_1", "dummy_target_element_1", decimalFormat.format(0.5)),
-            new MatcherResponse("dummy_source_element_2", "dummy_target_element_2", decimalFormat.format(0.2556))
-        );
+        return Arrays.asList();
     }
 }
