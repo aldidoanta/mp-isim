@@ -11,7 +11,7 @@ MATCHERS = [
 
 MATCHER_HOSTS = {
     'coma': settings.MATCHER_COMA_HOST,
-    'cupid': None,
+    'cupid': settings.MATCHER_COMA_HOST,
     'dummy': settings.MATCHER_DUMMY_HOST,
 }
 
@@ -38,33 +38,45 @@ class Isim(models.Model):
 
     @staticmethod
     def simulate(data):
-        matcher_request_body = {
-            'source_schema': data['source_schema'],
-            'target_schema': data['target_schema'],
-        }
-        # API call to the selected matcher service
-        try:
-            r = requests.post(f'{MATCHER_HOSTS[data["matcher"]]}/matcher/match-schemas',
-                              json=matcher_request_body)
-            r.raise_for_status()
-        except requests.exceptions.HTTPError as err:
-            raise SystemExit(err)
-        
-        source_elements = filter(None, data['source_schema'].split(',')) # use filter() to remove empty strings
-        target_elements = filter(None, data['target_schema'].split(','))
-        matched_elements = r.json()
-
-        # TODO proper HTTP 5xx error handling
         response = {
-            'matched_elements': matched_elements,
-            'unmatched_elements': Isim.get_unmatched_elements(source_elements, target_elements, matched_elements),
-            'matcher': data['matcher'],
+            'matcher_results': list(),
         }
         # Simple price calculation based on the number of intervals and price per interval
         if 'pricing_info' in data:
             response['total_price'] = data['pricing_info']['intervals'] * data['pricing_info']['price_per_interval']
+
+        matcher_request_body = {
+            'source_schema': data['source_schema'],
+            'target_schema': data['target_schema'],
+        }
+        source_elements = list(filter(None, data['source_schema'].split(','))) # use filter() to remove empty strings
+        target_elements = list(filter(None, data['target_schema'].split(',')))
+
+        for matcher_name, matcher_host in MATCHER_HOSTS.items():
+            response['matcher_results'].append(Isim.get_single_matcher_result(matcher_name, matcher_host, matcher_request_body, source_elements, target_elements))
+        
         return response
     
+    @staticmethod
+    def get_single_matcher_result(matcher_name, matcher_host, matcher_request_body, source_elements, target_elements):
+        # API call to the selected matcher service
+        try:
+            r = requests.post(f'{matcher_host}/matcher/match-schemas',
+                            json=matcher_request_body)
+            r.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            raise SystemExit(err)
+        
+        matched_elements = r.json()
+
+        # TODO proper HTTP 5xx error handling
+        response = {
+            'matcher': matcher_name,
+            'matched_elements': matched_elements,
+            'unmatched_elements': Isim.get_unmatched_elements(source_elements, target_elements, matched_elements),
+        }
+        return response
+
     @staticmethod
     def get_unmatched_elements(source_elements: List[str], 
                                target_elements: List[str], 
