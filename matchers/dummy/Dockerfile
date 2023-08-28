@@ -7,5 +7,5 @@ RUN mvn -f /home/app/pom.xml clean package
 # Package stage
 FROM openjdk:17-alpine
 COPY --from=build /home/app/target/dummy-0.0.1-SNAPSHOT.jar /usr/local/lib/dummy.jar
-EXPOSE 8080
+EXPOSE 8002
 ENTRYPOINT ["java","-jar","/usr/local/lib/dummy.jar"]

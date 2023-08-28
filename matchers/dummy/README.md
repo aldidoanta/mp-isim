@@ -10,8 +10,8 @@ User can perform the schema matching operation via the REST web service.
 ```
 
 ## OpenAPI 3.0 Documentation
-- Schema in JSON: http://localhost:8080/docs/schema
-- Rendered using Swagger UI: http://localhost:8080/docs
+- Schema in JSON: http://localhost:8002/docs/schema
+- Rendered using Swagger UI: http://localhost:8002/docs
 
 ## Technology Stack
 1. REST web service: Java + [Spring Boot](https://spring.io/projects/spring-boot)
