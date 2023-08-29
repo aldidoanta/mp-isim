@@ -87,6 +87,15 @@ services:
     networks:
       - vh
 
+  matchersimilarityflooding:
+    image: aldidoanta/matcher-similarityflooding:latest
+    env_file:
+      - matchers/similarity_flooding/.env
+    ports:
+      - "127.0.0.1:8003:8003"
+    networks:
+      - vh
+
   matcherdummy:
     image: aldidoanta/matcher-dummy:latest
     ports:

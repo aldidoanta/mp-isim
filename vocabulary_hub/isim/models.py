@@ -6,12 +6,14 @@ from typing import Dict, List
 MATCHERS = [
     ('coma', 'COMA'),
     ('cupid', 'Cupid'),
+    ('similarityflooding', 'Similarity Flooding'),
     ('dummy', 'Dummy'),
 ]
 
 MATCHER_HOSTS = {
     'coma': settings.MATCHER_COMA_HOST,
     'cupid': settings.MATCHER_CUPID_HOST,
+    'similarityflooding': settings.MATCHER_SIMILARITYFLOODING_HOST,
     'dummy': settings.MATCHER_DUMMY_HOST,
 }
 
