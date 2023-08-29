@@ -34,7 +34,10 @@ class CSVTable(BaseTable):
 
     def __get_columns_from_csv(self):
         # Current assumption: the CSV file only uses commas (,) as delimiter
-        for column_name, column_data in self.__data.items():
-            data = list(column_data.dropna().values)
-            d_type = self.get_data_type(data, str(column_data.dtype))
+        # To implement this method using Pandas DataFrame as input instead of CSV, see the original implementation
+        # https://github.com/delftdata/valentine/blob/29be01ba1a00b389a359f856ff9b02c2bc93740e/valentine/data_sources/dataframe/dataframe_table.py#L37C5-L41
+        column_names = list(filter(None, self.__data.split(','))) # use filter() to remove empty strings
+        for column_name in column_names:
+            data = list()
+            d_type = 'varchar'
             self.__columns[column_name] = CSVColumn(column_name, data, d_type, self.unique_identifier)
