@@ -1,6 +1,6 @@
 from django.db import models
-# from .algorithm.cupid import Cupid
-# from .algorithm.data_sources.csv.csv_table import CSVTable
+from .algorithm.cupid_model import Cupid
+from .algorithm.data_sources.csv.csv_table import CSVTable
 
 
 class Matcher(models.Model):
@@ -12,17 +12,17 @@ class Matcher(models.Model):
 
     @staticmethod
     def match_schemas(data):
-        # # TODO matcher implementation
-        # matcher = Cupid()
-        # source_schema = CSVTable(data['source_schema'], 'source_schema')
-        # target_schema = CSVTable(data['target_schema'], 'target_schema')
-        # matches = matcher.get_matches(source_schema, target_schema).items()
-        # # Sort results by similarity score, descending
-        # sorted_matches = sorted(matches,
-        #                       key=lambda item: item[1], reverse=True)
-        # matches_response = list(map(Matcher.build_match_response, sorted_matches))
+        # TODO matcher implementation
+        matcher = Cupid()
+        source_schema = CSVTable(data['source_schema'], 'source_schema')
+        target_schema = CSVTable(data['target_schema'], 'target_schema')
+        matches = matcher.get_matches(source_schema, target_schema).items()
+        # Sort results by similarity score, descending
+        sorted_matches = sorted(matches,
+                              key=lambda item: item[1], reverse=True)
+        matches_response = list(map(Matcher.build_match_response, sorted_matches))
 
-        return []
+        return matches_response
     
     @staticmethod
     def build_match_response(match):
