@@ -12,18 +12,16 @@ class Matcher(models.Model):
 
     @staticmethod
     def match_schemas(data):
-        # TODO matcher implementation
-        # matcher = SimilarityFlooding()
-        # source_schema = CSVTable(data['source_schema'], 'source_schema')
-        # target_schema = CSVTable(data['target_schema'], 'target_schema')
-        # matches = matcher.get_matches(source_schema, target_schema).items()
-        # # Sort results by similarity score, descending
-        # sorted_matches = sorted(matches,
-        #                       key=lambda item: item[1], reverse=True)
-        # matches_response = list(map(Matcher.build_match_response, sorted_matches))
+        matcher = SimilarityFlooding()
+        source_schema = CSVTable(data['source_schema'], 'source_schema')
+        target_schema = CSVTable(data['target_schema'], 'target_schema')
+        matches = matcher.get_matches(source_schema, target_schema).items()
+        # Sort results by similarity score, descending
+        sorted_matches = sorted(matches,
+                              key=lambda item: item[1], reverse=True)
+        matches_response = list(map(Matcher.build_match_response, sorted_matches))
 
-        # return matches_response
-        return list()
+        return matches_response
     
     @staticmethod
     def build_match_response(match):
