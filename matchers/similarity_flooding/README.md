@@ -4,7 +4,7 @@ A Matcher implementation using [Similarity Flooding](https://doi.org/10.1109/ICD
 
 The implementation was adapted from [Valentine](https://doi.org/10.1109/ICDE51399.2021.00047), a Python package to perform schema matching using `pandas DataFrame`.
 
-User can perform the schema matching operation via the REST web service.
+User can perform the schema matching operation via REST web service.
 
 ## Running the Web Service
 ```bash
