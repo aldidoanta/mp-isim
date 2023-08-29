@@ -7,8 +7,8 @@ ENV PYTHONPATH /cupid:$PYTHONPATH
 
 COPY . /cupid/
 
-EXPOSE 8003
+EXPOSE 8002
 
 RUN pip install -r requirements.txt
 
-CMD ["python", "/cupid/manage.py", "runserver", "0.0.0.0:8003"]
+CMD ["python", "/cupid/manage.py", "runserver", "0.0.0.0:8002"]

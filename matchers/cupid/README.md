@@ -8,12 +8,12 @@ User can perform the schema matching operation via the REST web service.
 
 ## Running the Web Service
 ```bash
-python manage.py runserver 8003
+python manage.py runserver 8002
 ```
 
 ## OpenAPI 3.0 Documentation
-- Schema in JSON: http://localhost:8003/docs/schema
-- Rendered using Swagger UI: http://localhost:8003/docs
+- Schema in JSON: http://localhost:8002/docs/schema
+- Rendered using Swagger UI: http://localhost:8002/docs
 
 ## Technology Stack
 1. REST web service: Python + [Django](https://www.djangoproject.com/) + [Django REST framework](https://www.django-rest-framework.org/)
