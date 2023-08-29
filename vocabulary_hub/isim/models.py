@@ -11,7 +11,7 @@ MATCHERS = [
 
 MATCHER_HOSTS = {
     'coma': settings.MATCHER_COMA_HOST,
-    'cupid': settings.MATCHER_COMA_HOST,
+    'cupid': settings.MATCHER_CUPID_HOST,
     'dummy': settings.MATCHER_DUMMY_HOST,
 }
 
