@@ -78,6 +78,15 @@ services:
     networks:
       - vh
 
+  matchercupid:
+    image: aldidoanta/matcher-cupid:latest
+    env_file:
+      - matchers/cupid/.env
+    ports:
+      - "127.0.0.1:8003:8003"
+    networks:
+      - vh
+
   matcherdummy:
     image: aldidoanta/matcher-dummy:latest
     ports:
