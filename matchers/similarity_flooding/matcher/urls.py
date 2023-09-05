@@ -5,8 +5,8 @@ from matcher import views
 
 urlpatterns = [
     path('matcher/match-schemas', views.MatcherMatchSchemas.as_view()),
-    # path to the OpenAPI dynamic schema
-    path('docs/schema/', SpectacularAPIView.as_view(), name='schema'),
-    # path to the generated OpenAPI docs using Swagger UI
-    path('docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('docs/', TemplateView.as_view(
+        template_name='swagger-ui.html',
+        extra_context={'schema_url':'openapi-schema'}
+    ), name='swagger-ui'),
 ]
