@@ -1,0 +1,170 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Matcher - COMA",
+    "version": "1.0.0",
+    "description": "API documentation of COMA Matcher, adapted from [Valentine by Delft's Data Management Group](https://github.com/delftdata/valentine). \\\nPart of [Master Project \"Interoperability Simulator for Data Spaces\"](https://github.com/aldidoanta/mp-isim).\n"
+  },
+  "paths": {
+    "/matcher/match-schemas": {
+      "post": {
+        "operationId": "matcher_match_schemas_create",
+        "description": "Given a source schema and a target schema, returns a schema mapping along with the similarity score.",
+        "tags": [
+          "matcher"
+        ],
+        "requestBody": {
+          "description": "**source_schema**: Comma Separated Value (CSV) header that contains the source schema elements \\\n**target_schema**: Comma Separated Value (CSV) header that contains the target schema elements\n",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MatcherRequest"
+              },
+              "examples": {
+                "SchemasWithSomeMatches": {
+                  "value": {
+                    "source_schema": "EID,Writers,Cited by,Title,Year,zipcode",
+                    "target_schema": "EID,cited-by,Schrijvers,Country,postcode"
+                  },
+                  "summary": "Schemas with some matches"
+                },
+                "SchemasWithNoMatches": {
+                  "value": {
+                    "source_schema": "qwerty",
+                    "target_schema": "defghi"
+                  },
+                  "summary": "Schemas with no matches"
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/MatcherRequest"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/MatcherRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          },
+          {
+            "basicAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatcherResponse"
+                },
+                "examples": {
+                  "ResultsWithSomeMatches": {
+                    "value": [
+                      {
+                        "source_element": "EID",
+                        "target_element": "EID",
+                        "score": "0.807"
+                      },
+                      {
+                        "source_element": "Cited by",
+                        "target_element": "cited-by",
+                        "score": "0.645"
+                      },
+                      {
+                        "source_element": "zipcode",
+                        "target_element": "postcode",
+                        "score": "0.487"
+                      },
+                      {
+                        "source_element": "Writers",
+                        "target_element": "Schrijvers",
+                        "score": "0.417"
+                      }
+                    ],
+                    "summary": "Results with some matches"
+                  },
+                  "ResultsWithNoMatches": {
+                    "value": [
+                      []
+                    ],
+                    "summary": "Results with no matches"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MatcherRequest": {
+        "type": "object",
+        "properties": {
+          "source_schema": {
+            "type": "string",
+            "maxLength": 100,
+            "example": "EID,Writers,Cited by,Title,Year,zipcode"
+          },
+          "target_schema": {
+            "type": "string",
+            "maxLength": 100,
+            "example": "EID,cited-by,Schrijvers,Country,postcode"
+          }
+        },
+        "required": [
+          "source_schema",
+          "target_schema"
+        ]
+      },
+      "MatcherResponse": {
+        "type": "object",
+        "properties": {
+          "source_element": {
+            "type": "string",
+            "maxLength": 100,
+            "example": "Cited by"
+          },
+          "target_element": {
+            "type": "string",
+            "maxLength": 100,
+            "example": "cited-by"
+          },
+          "score": {
+            "type": "string",
+            "format": "decimal",
+            "pattern": "^-?\\d{0,1}(?:\\.\\d{0,3})?$",
+            "example": "0.645"
+          }
+        },
+        "required": [
+          "score",
+          "source_element",
+          "target_element"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "sessionid"
+      }
+    }
+  }
+}
