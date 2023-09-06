@@ -1,6 +1,35 @@
 version: "3.8"
 
 services:
+  # IDS Connectors that consists of one Data Provider and one Data Consumer
+
+  dataprovider:
+    image: aldidoanta/mendix-ids-connector:latest
+    depends_on:
+      - db_dataprovider
+    environment:
+      ADMIN_PASSWORD: Dataprovider1!
+      DATABASE_ENDPOINT: postgres://admin:admin@db_dataprovider:5432/db_dp
+      MXRUNTIME_ApplicationRootUrl: http://localhost:8081
+    ports:
+      - 127.0.0.1:8081:8080
+    networks:
+      - dp
+      - ids
+
+  db_dataprovider:
+    image: postgres:14.8
+    environment:
+      - POSTGRES_DB=db_dp
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 127.0.0.1:5432:5432
+    volumes:
+      - db_dataprovider_data:/var/lib/postgresql/data
+    networks:
+      - dp
+
   dataconsumer:
     image: aldidoanta/mendix-ids-connector:latest
     depends_on:
@@ -29,10 +58,14 @@ services:
     networks:
       - dc
 
+  # Vocabulary Hub/Interoperability Simulator and the Matchers
+
   vocabularyhub:
     image: aldidoanta/vocabulary-hub:latest
     depends_on:
       - matchercoma
+      - matchercupid
+      - matchersimilarityflooding
       - matcherdummy
     env_file:
       - vocabulary_hub/.env
@@ -77,9 +110,11 @@ services:
       - vh
 
 networks:
+  dp:
   dc:
   vh:
   ids:
 
 volumes:
+  db_dataprovider_data:
   db_dataconsumer_data:
