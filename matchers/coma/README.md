@@ -31,7 +31,7 @@ pip install -r requirements.txt
 python3 manage.py runserver 8001
 ```
 
-4. To deactivate the virtual environment:
+4. To stop and deactivate the virtual environment, <kbd>CTRL</kbd>+<kbd>C</kbd> then:
 ```bash
 deactivate
 ```

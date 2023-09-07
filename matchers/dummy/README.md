@@ -14,6 +14,7 @@ User can perform the schema matching operation via the REST web service.
 ```bash
 ./mvnw clean spring-boot:run
 ```
+To stop the app, just press <kbd>CTRL</kbd>+<kbd>C</kbd>.
 
 ### Installation using Docker
 1. Download the latest image from Docker Hub.
