@@ -2,18 +2,52 @@
 
 A Matcher using [COMA 3.0 from the University of Leipzig](https://dbs.uni-leipzig.de/Research/coma.html).
 
-The implementation was adapted from [Valentine](https://doi.org/10.1109/ICDE51399.2021.00047), a Python package to perform schema matching using `pandas DataFrame`.
+The implementation was adapted from [Valentine](https://doi.org/10.1109/ICDE51399.2021.00047), a Python package to perform schema matching using [`pandas DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
 User can perform the schema matching operation via the REST web service.
 
-## Running the Web Service
+## Installation
+### Requirements/Preparations
+1. Python 3
+2. Java 17
+3. Docker Engine (optional, for installation with Docker)
+4. Make sure the current directory (relative to project root `mp-isim`) is at `/matchers/coma`.
+5. Create an environment variable file called `.env` using a template from [`.env.template`](.env.template).
+
+### Installation without using Docker
+1. Create and activate the virtual environment.
 ```bash
-python manage.py runserver 8001
+python3 -m venv env
+source env/bin/activate
 ```
 
-## OpenAPI 3.0 Documentation
-- Schema in JSON: http://localhost:8001/docs/schema
-- Rendered using Swagger UI: http://localhost:8001/docs
+2. Install app dependencies.
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the Django server.
+```bash
+python3 manage.py runserver 8001
+```
+
+4. To deactivate the virtual environment:
+```bash
+deactivate
+```
+
+### Installation using Docker
+1. Download the latest image from Docker Hub.
+```bash
+docker pull aldidoanta/matcher-coma:latest
+```
+2. It is recommended to run the Docker container together with the other containers using [`docker compose.yml`](../../docker-compose.yml). However, it is possible to run an individual Matcher using `docker run`.
+```bash
+docker run --env-file .env -p 8001:8001 aldidoanta/matcher-coma
+```
+
+## API Documentation using OpenAPI 3.0
+Rendered using Swagger UI: http://localhost:8001/docs
 
 ## Technology Stack
 1. REST web service: Python + [Django](https://www.djangoproject.com/) + [Django REST framework](https://www.django-rest-framework.org/)
