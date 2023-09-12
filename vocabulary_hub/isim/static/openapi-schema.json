@@ -24,16 +24,13 @@
                 "SchemasWithSomeMatches": {
                   "value": {
                     "source_schema": "EID,Writers,Cited by,Title,Year,zipcode",
-                    "target_schema": "EID,cited-by,Schrijvers,Country,postcode"
+                    "target_schema": "EID,cited-by,Schrijvers,Country,postcode",
+                    "pricing_info": {
+                        "intervals": 2,
+                        "price_per_interval": 50
+                    }
                   },
                   "summary": "Schemas with some matches"
-                },
-                "SchemasWithNoMatches": {
-                  "value": {
-                    "source_schema": "qwerty",
-                    "target_schema": "defghi"
-                  },
-                  "summary": "Schemas with no matches"
                 }
               }
             },
@@ -68,35 +65,232 @@
                 },
                 "examples": {
                   "ResultsWithSomeMatches": {
-                    "value": [
-                      {
-                        "source_element": "EID",
-                        "target_element": "EID",
-                        "score": "0.807"
-                      },
-                      {
-                        "source_element": "Cited by",
-                        "target_element": "cited-by",
-                        "score": "0.645"
-                      },
-                      {
-                        "source_element": "zipcode",
-                        "target_element": "postcode",
-                        "score": "0.487"
-                      },
-                      {
-                        "source_element": "Writers",
-                        "target_element": "Schrijvers",
-                        "score": "0.417"
-                      }
-                    ],
+                    "value": {
+                      "matcher_results": [
+                          {
+                              "matcher": "coma",
+                              "matched_elements": [
+                                  {
+                                      "source_element": "EID",
+                                      "target_element": "EID",
+                                      "score": "0.807"
+                                  },
+                                  {
+                                      "source_element": "Cited by",
+                                      "target_element": "cited-by",
+                                      "score": "0.645"
+                                  },
+                                  {
+                                      "source_element": "zipcode",
+                                      "target_element": "postcode",
+                                      "score": "0.487"
+                                  },
+                                  {
+                                      "source_element": "Writers",
+                                      "target_element": "Schrijvers",
+                                      "score": "0.417"
+                                  }
+                              ],
+                              "unmatched_elements": {
+                                  "source_elements": "Title,Year",
+                                  "target_elements": "Country"
+                              }
+                          },
+                          {
+                              "matcher": "cupid",
+                              "matched_elements": [
+                                  {
+                                      "source_element": "EID",
+                                      "target_element": "EID",
+                                      "score": "1.000"
+                                  },
+                                  {
+                                      "source_element": "Cited by",
+                                      "target_element": "cited-by",
+                                      "score": "0.815"
+                                  },
+                                  {
+                                      "source_element": "zipcode",
+                                      "target_element": "postcode",
+                                      "score": "0.733"
+                                  }
+                              ],
+                              "unmatched_elements": {
+                                  "source_elements": "Title,Year,Writers",
+                                  "target_elements": "Schrijvers,Country"
+                              }
+                          },
+                          {
+                              "matcher": "similarityflooding",
+                              "matched_elements": [
+                                  {
+                                      "source_element": "EID",
+                                      "target_element": "EID",
+                                      "score": "0.353"
+                                  },
+                                  {
+                                      "source_element": "Cited by",
+                                      "target_element": "cited-by",
+                                      "score": "0.305"
+                                  },
+                                  {
+                                      "source_element": "zipcode",
+                                      "target_element": "postcode",
+                                      "score": "0.288"
+                                  },
+                                  {
+                                      "source_element": "Writers",
+                                      "target_element": "Schrijvers",
+                                      "score": "0.273"
+                                  },
+                                  {
+                                      "source_element": "Title",
+                                      "target_element": "cited-by",
+                                      "score": "0.249"
+                                  },
+                                  {
+                                      "source_element": "Writers",
+                                      "target_element": "cited-by",
+                                      "score": "0.237"
+                                  },
+                                  {
+                                      "source_element": "Cited by",
+                                      "target_element": "Country",
+                                      "score": "0.237"
+                                  },
+                                  {
+                                      "source_element": "Title",
+                                      "target_element": "postcode",
+                                      "score": "0.219"
+                                  },
+                                  {
+                                      "source_element": "Writers",
+                                      "target_element": "Country",
+                                      "score": "0.215"
+                                  },
+                                  {
+                                      "source_element": "Year",
+                                      "target_element": "Schrijvers",
+                                      "score": "0.215"
+                                  },
+                                  {
+                                      "source_element": "Writers",
+                                      "target_element": "postcode",
+                                      "score": "0.211"
+                                  },
+                                  {
+                                      "source_element": "Title",
+                                      "target_element": "Schrijvers",
+                                      "score": "0.211"
+                                  },
+                                  {
+                                      "source_element": "zipcode",
+                                      "target_element": "cited-by",
+                                      "score": "0.211"
+                                  },
+                                  {
+                                      "source_element": "Cited by",
+                                      "target_element": "postcode",
+                                      "score": "0.208"
+                                  },
+                                  {
+                                      "source_element": "zipcode",
+                                      "target_element": "Schrijvers",
+                                      "score": "0.205"
+                                  },
+                                  {
+                                      "source_element": "Cited by",
+                                      "target_element": "Schrijvers",
+                                      "score": "0.202"
+                                  },
+                                  {
+                                      "source_element": "Year",
+                                      "target_element": "Country",
+                                      "score": "0.194"
+                                  },
+                                  {
+                                      "source_element": "Title",
+                                      "target_element": "Country",
+                                      "score": "0.192"
+                                  },
+                                  {
+                                      "source_element": "Year",
+                                      "target_element": "cited-by",
+                                      "score": "0.192"
+                                  },
+                                  {
+                                      "source_element": "Year",
+                                      "target_element": "postcode",
+                                      "score": "0.192"
+                                  },
+                                  {
+                                      "source_element": "zipcode",
+                                      "target_element": "Country",
+                                      "score": "0.187"
+                                  },
+                                  {
+                                      "source_element": "EID",
+                                      "target_element": "cited-by",
+                                      "score": "0.159"
+                                  },
+                                  {
+                                      "source_element": "EID",
+                                      "target_element": "Schrijvers",
+                                      "score": "0.159"
+                                  },
+                                  {
+                                      "source_element": "EID",
+                                      "target_element": "Country",
+                                      "score": "0.159"
+                                  },
+                                  {
+                                      "source_element": "EID",
+                                      "target_element": "postcode",
+                                      "score": "0.159"
+                                  },
+                                  {
+                                      "source_element": "Writers",
+                                      "target_element": "EID",
+                                      "score": "0.159"
+                                  },
+                                  {
+                                      "source_element": "Cited by",
+                                      "target_element": "EID",
+                                      "score": "0.159"
+                                  },
+                                  {
+                                      "source_element": "Title",
+                                      "target_element": "EID",
+                                      "score": "0.159"
+                                  },
+                                  {
+                                      "source_element": "Year",
+                                      "target_element": "EID",
+                                      "score": "0.159"
+                                  },
+                                  {
+                                      "source_element": "zipcode",
+                                      "target_element": "EID",
+                                      "score": "0.159"
+                                  }
+                              ],
+                              "unmatched_elements": {
+                                  "source_elements": "",
+                                  "target_elements": ""
+                              }
+                          },
+                          {
+                              "matcher": "dummy",
+                              "matched_elements": [],
+                              "unmatched_elements": {
+                                  "source_elements": "Title,Year,Writers,Cited by,EID,zipcode",
+                                  "target_elements": "cited-by,Schrijvers,Country,EID,postcode"
+                              }
+                          }
+                      ],
+                      "total_price": 100
+                    },
                     "summary": "Results with some matches"
-                  },
-                  "ResultsWithNoMatches": {
-                    "value": [
-                      []
-                    ],
-                    "summary": "Results with no matches"
                   }
                 }
               }
@@ -121,6 +315,19 @@
             "type": "string",
             "maxLength": 100,
             "example": "EID,cited-by,Schrijvers,Country,postcode"
+          },
+          "pricing_info": {
+            "type": "object",
+            "properties": {
+              "intervals": {
+                "type": "integer",
+                "example": 2
+              },
+              "price_per_interval": {
+                "type": "integer",
+                "example": 50
+              }
+            }
           }
         },
         "required": [
@@ -131,21 +338,58 @@
       "IsimResponse": {
         "type": "object",
         "properties": {
-          "source_element": {
-            "type": "string",
-            "maxLength": 100,
-            "example": "Cited by"
+          "matcher_results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "matcher": {
+                  "type": "string",
+                  "example": "COMA"
+                },
+                "matched_elements": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "source_element": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "example": "Cited by"
+                      },
+                      "target_element": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "example": "cited-by"
+                      },
+                      "score": {
+                        "type": "string",
+                        "format": "decimal",
+                        "pattern": "^-?\\d{0,1}(?:\\.\\d{0,3})?$",
+                        "example": "0.645"
+                      }
+                    }
+                  }
+                },
+                "unmatched_elements": {
+                  "type": "object",
+                  "properties": {
+                    "source_elements": {
+                      "type": "string",
+                      "example": "Title,Year"
+                    },
+                    "target_elements": {
+                      "type": "string",
+                      "example": "Country"
+                    },
+                  }
+                }
+              }
+            }
           },
-          "target_element": {
-            "type": "string",
-            "maxLength": 100,
-            "example": "cited-by"
-          },
-          "score": {
-            "type": "string",
-            "format": "decimal",
-            "pattern": "^-?\\d{0,1}(?:\\.\\d{0,3})?$",
-            "example": "0.645"
+          "total_price": {
+            "type": "integer",
+            "example": 100
           }
         },
         "required": [
