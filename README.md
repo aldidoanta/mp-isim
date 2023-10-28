@@ -1,6 +1,8 @@
-# mp-isim
+# Interoperability Simulator for Data Spaces
 
 The Master Project of Aldi Doanta Kurnia - Master Computer Science student at the University of Twente.
+
+The thesis is available on the [UT's Theses repository](https://essay.utwente.nl/97460/) and [ResearchGate](https://doi.org/10.13140/RG.2.2.27278.95042).
 
 ## Installation
 ### Requirements/Preparations
@@ -27,3 +29,10 @@ docker compose up -d
 ```bash
 docker compose down
 ```
+
+## Thesis Artifacts
+The `artifacts/` directory contains the Master Project artifacts besides the source code, such as:
+1. Archimate architecture diagrams
+2. BPMN diagrams
+3. CSV files that represent the interoperability scenarios
+4. PowerPoint presentation files
