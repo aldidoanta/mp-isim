@@ -7,11 +7,8 @@ The thesis is available on the [UT's Theses repository](https://essay.utwente.nl
 ## Demo
 
 
-<figure class="video_container">
-  <video controls="true" allowfullscreen="true">
-    <source src="artifacts/2023-09-04-isim-demo.mp4" type="video/mp4">
-  </video>
-</figure>
+https://github.com/aldidoanta/mp-isim/assets/4391973/13e926df-7b5b-4819-bba7-ac756204bbd9
+
 
 
 ## Installation
