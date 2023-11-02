@@ -5,11 +5,14 @@ The Master Project of Aldi Doanta Kurnia - Master Computer Science student at th
 The thesis is available on the [UT's Theses repository](https://essay.utwente.nl/97460/) and [ResearchGate](https://doi.org/10.13140/RG.2.2.27278.95042).
 
 ## Demo
+
+
 <figure class="video_container">
   <video controls="true" allowfullscreen="true">
     <source src="artifacts/2023-09-04-isim-demo.mp4" type="video/mp4">
   </video>
 </figure>
+
 
 ## Installation
 ### Requirements/Preparations
